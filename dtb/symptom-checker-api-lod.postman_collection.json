@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "414db771-1b91-418f-a3fa-7337d1165459",
+		"name": "symptom-checker-api-lod",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search symptoms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://lod.medlinx.online/terminology/api/v1/fhir/ValueSet/$expand?url=http://terminology.medlinx.online/ValueSet/helzy-search-vs&displayLanguage=ru&offset=0&count=10&filter=Болит живот",
+					"protocol": "https",
+					"host": [
+						"lod",
+						"medlinx",
+						"online"
+					],
+					"path": [
+						"terminology",
+						"api",
+						"v1",
+						"fhir",
+						"ValueSet",
+						"$expand"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "http://terminology.medlinx.online/ValueSet/helzy-search-vs"
+						},
+						{
+							"key": "displayLanguage",
+							"value": "ru"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "count",
+							"value": "10"
+						},
+						{
+							"key": "filter",
+							"value": "Болит живот"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Call symptom checker",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hook\": \"symptom-checker\",\n    \"hookInstance\": \"586c73ff-1518-41b7-b4f0-590b10120a1c\",\n    \"fhirServer\": null,\n    \"fhirAuthorization\": null,\n    \"context\": {},\n    \"prefetch\": {\n        \"patient\": {\n            \"resourceType\": \"Patient\",\n            \"gender\": \"female\",\n            \"birthDate\": \"1975\"\n        },\n        \"observations\": {\n            \"resourceType\": \"Bundle\",\n            \"type\": \"collection\",\n            \"entry\": [\n                {\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"id\": \"urn:uuid:fee86a60-27fd-11ea-b18d-bed4e78bdcea\",\n                        \"identifier\": [\n                            {\n                                \"system\": \"urn:uuid:fee86a60-27fd-11ea-b18d-bed4e78bdcea\"\n                            }\n                        ],\n                        \"status\": \"final\",\n                        \"category\": [\n                            {\n                                \"coding\": [\n                                    {\n                                        \"system\": \"https://www.hl7.org/fhir/codesystem-observation-category.html\",\n                                        \"code\": \"survey\"\n                                    }\n                                ]\n                            }\n                        ],\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"49727002\"\n                                }\n                            ],\n                            \"text\": \"Кашель\"\n                        },\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"373066001\"\n                                }\n                            ]\n                        }\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:9b96b77c-eb38-42ca-9ed7-6af8f6d65f21\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/feaf94c1-feb5-4f2b-a530-d34da972b653|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"248592006\",\n                                    \"display\": \"Опишите характер кашля:\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T16:38:02.9250484+00:00\",\n                        \"issued\": \"2019-12-26T16:38:02.9251895+00:00\",\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"28743005\",\n                                    \"display\": \"Влажный кашель\"\n                                }\n                            ],\n                            \"text\": \"Влажный кашель\"\n                        }\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:d50eebf7-1f8f-471a-bf4a-34ccebce403a\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/1055f9f2-c83a-43ab-8c5c-8c0c0b1bbb67|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"386661006\",\n                                    \"display\": \"Есть ли у Вас повышение температуры тела?\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T16:39:58.1152213+00:00\",\n                        \"issued\": \"2019-12-26T16:39:58.1153415+00:00\",\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"373066001\",\n                                    \"display\": \"Да\"\n                                }\n                            ],\n                            \"text\": \"Да\"\n                        }\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:daf4caf8-486d-4c3e-a594-0c84551b9507\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/1055f9f2-c83a-43ab-8c5c-8c0c0b1bbb67|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"386661006\",\n                                    \"display\": \"Есть ли у Вас повышение температуры тела?\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T16:40:00.1802533+00:00\",\n                        \"issued\": \"2019-12-26T16:40:00.1803744+00:00\",\n                        \"hasMember\": [\n                            {\n                                \"reference\": \"urn:uuid:b85effae-3622-454b-b778-696daa920b3a\"\n                            }\n                        ]\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:b85effae-3622-454b-b778-696daa920b3a\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/97055db9-4c0c-4c46-95dd-f9c2641f1ffc|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://terminology.medlinx.online/medlinx-snomed-extensions\",\n                                    \"code\": \"87777777107\",\n                                    \"display\": \"Укажите длительность повышения температуры:\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T16:40:00.1806552+00:00\",\n                        \"issued\": \"2019-12-26T16:40:00.1807694+00:00\",\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://terminology.medlinx.online/medlinx-snomed-extensions\",\n                                    \"code\": \"704425001\",\n                                    \"display\": \"Повышение температуры более 45 дней\"\n                                }\n                            ],\n                            \"text\": \"Повышение температуры более 45 дней\"\n                        }\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:dd8e68b5-f72e-4f59-a105-43048779bb64\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/890ccd00-5128-42f9-bf05-bb481f9ebe09|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://terminology.medlinx.online/medlinx-snomed-extensions\",\n                                    \"code\": \"87777777107\",\n                                    \"display\": \"Укажите длительность повышения температуры:\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T17:48:13.9044221+00:00\",\n                        \"issued\": \"2019-12-26T17:48:13.9045431+00:00\",\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://terminology.medlinx.online/medlinx-snomed-extensions\",\n                                    \"code\": \"704425001\",\n                                    \"display\": \"Повышение температуры более 45 дней\"\n                                }\n                            ],\n                            \"text\": \"Повышение температуры более 45 дней\"\n                        }\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                }\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lod.medlinx.online/cds/cds/1/cds-services/symptom-checker",
+					"protocol": "https",
+					"host": [
+						"lod",
+						"medlinx",
+						"online"
+					],
+					"path": [
+						"cds",
+						"cds",
+						"1",
+						"cds-services",
+						"symptom-checker"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Questionnaire",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://lod.medlinx.online/catalog/catalog/1/Fhir/Questionnaire?_count=1&_sort=-version&url=http://medzoom.ru/Questionnaire/434ad366-fe92-4de6-aefe-39cee0ae0f91",
+					"protocol": "https",
+					"host": [
+						"lod",
+						"medlinx",
+						"online"
+					],
+					"path": [
+						"catalog",
+						"catalog",
+						"1",
+						"Fhir",
+						"Questionnaire"
+					],
+					"query": [
+						{
+							"key": "_count",
+							"value": "1"
+						},
+						{
+							"key": "_sort",
+							"value": "-version"
+						},
+						{
+							"key": "url",
+							"value": "http://medzoom.ru/Questionnaire/434ad366-fe92-4de6-aefe-39cee0ae0f91"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Observation from QuestionnaireResponse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"resourceType\": \"QuestionnaireResponse\",\n    \"status\": \"completed\",\n    \"subject\": {\n        \"reference\": \"Patient/1\"\n    },\n    \"item\": {\n        \"linkId\": \"434ad366-fe92-4de6-aefe-39cee0ae0f91\",\n        \"answer\": [\n            {\n                \"valueCoding\": {\n                    \"system\": \"http://snomed.info/sct\",\n                    \"code\": \"248604008\",\n                    \"display\": \"Прозрачная\"\n                }\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lod.medlinx.online/sdc/form-processing/1.0/fhir/Questionnaire/0f499526-9b25-4a2a-932b-425bfa7c4de2/$extract",
+					"protocol": "https",
+					"host": [
+						"lod",
+						"medlinx",
+						"online"
+					],
+					"path": [
+						"sdc",
+						"form-processing",
+						"1.0",
+						"fhir",
+						"Questionnaire",
+						"0f499526-9b25-4a2a-932b-425bfa7c4de2",
+						"$extract"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get final response",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"hook\": \"symptom-checker\",\n    \"hookInstance\": \"586c73ff-1518-41b7-b4f0-590b10120a1c\",\n    \"fhirServer\": null,\n    \"fhirAuthorization\": null,\n    \"context\": {},\n    \"prefetch\": {\n        \"patient\": {\n            \"resourceType\": \"Patient\",\n            \"gender\": \"female\",\n            \"birthDate\": \"1975\"\n        },\n        \"observations\": {\n            \"resourceType\": \"Bundle\",\n            \"type\": \"collection\",\n            \"entry\": [\n                {\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"id\": \"urn:uuid:fee86a60-27fd-11ea-b18d-bed4e78bdcea\",\n                        \"identifier\": [\n                            {\n                                \"system\": \"urn:uuid:fee86a60-27fd-11ea-b18d-bed4e78bdcea\"\n                            }\n                        ],\n                        \"status\": \"final\",\n                        \"category\": [\n                            {\n                                \"coding\": [\n                                    {\n                                        \"system\": \"https://www.hl7.org/fhir/codesystem-observation-category.html\",\n                                        \"code\": \"survey\"\n                                    }\n                                ]\n                            }\n                        ],\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"49727002\"\n                                }\n                            ],\n                            \"text\": \"Кашель\"\n                        },\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"373066001\"\n                                }\n                            ]\n                        }\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:9b96b77c-eb38-42ca-9ed7-6af8f6d65f21\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/feaf94c1-feb5-4f2b-a530-d34da972b653|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"248592006\",\n                                    \"display\": \"Опишите характер кашля:\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T16:38:02.9250484+00:00\",\n                        \"issued\": \"2019-12-26T16:38:02.9251895+00:00\",\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"28743005\",\n                                    \"display\": \"Влажный кашель\"\n                                }\n                            ],\n                            \"text\": \"Влажный кашель\"\n                        }\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:d50eebf7-1f8f-471a-bf4a-34ccebce403a\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/1055f9f2-c83a-43ab-8c5c-8c0c0b1bbb67|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"386661006\",\n                                    \"display\": \"Есть ли у Вас повышение температуры тела?\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T16:39:58.1152213+00:00\",\n                        \"issued\": \"2019-12-26T16:39:58.1153415+00:00\",\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"373066001\",\n                                    \"display\": \"Да\"\n                                }\n                            ],\n                            \"text\": \"Да\"\n                        }\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:daf4caf8-486d-4c3e-a594-0c84551b9507\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/1055f9f2-c83a-43ab-8c5c-8c0c0b1bbb67|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://snomed.info/sct\",\n                                    \"code\": \"386661006\",\n                                    \"display\": \"Есть ли у Вас повышение температуры тела?\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T16:40:00.1802533+00:00\",\n                        \"issued\": \"2019-12-26T16:40:00.1803744+00:00\",\n                        \"hasMember\": [\n                            {\n                                \"reference\": \"urn:uuid:b85effae-3622-454b-b778-696daa920b3a\"\n                            }\n                        ]\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                },\n                {\n                    \"fullUrl\": \"urn:uuid:b85effae-3622-454b-b778-696daa920b3a\",\n                    \"resource\": {\n                        \"resourceType\": \"Observation\",\n                        \"meta\": {\n                            \"profile\": [\n                                \"http://medzoom.ru/StructureDefinition/97055db9-4c0c-4c46-95dd-f9c2641f1ffc|0.1.0-20191226.184157\"\n                            ]\n                        },\n                        \"status\": \"final\",\n                        \"code\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://terminology.medlinx.online/medlinx-snomed-extensions\",\n                                    \"code\": \"87777777107\",\n                                    \"display\": \"Укажите длительность повышения температуры:\"\n                                }\n                            ]\n                        },\n                        \"effectiveDateTime\": \"2019-12-26T16:40:00.1806552+00:00\",\n                        \"issued\": \"2019-12-26T16:40:00.1807694+00:00\",\n                        \"valueCodeableConcept\": {\n                            \"coding\": [\n                                {\n                                    \"system\": \"http://terminology.medlinx.online/medlinx-snomed-extensions\",\n                                    \"code\": \"704425001\",\n                                    \"display\": \"Повышение температуры более 45 дней\"\n                                }\n                            ],\n                            \"text\": \"Повышение температуры более 45 дней\"\n                        }\n                    },\n                    \"request\": {\n                        \"method\": \"POST\",\n                        \"url\": \"Observation\"\n                    }\n                },\n                {\"fullUrl\":\"urn:uuid:2f6ce533-c60e-4912-a614-c25d7aab7c8b\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/5abe407a-dab7-462a-a045-258dbf14f877|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"428892006\",\"display\":\"Проводилась ли вас операция по удалению щитовидной железы?\"}]},\"effectiveDateTime\":\"2021-01-15T07:02:51.5553853+00:00\",\"issued\":\"2021-01-15T07:02:51.5554973+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:dc221a52-ba2f-4919-bb40-d02556af0f53\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/2e670010-00c1-4697-a3b8-aaec3362fae7|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"398991009\",\"display\":\"Есть ли у вас двигательная заторможенность?\"}]},\"effectiveDateTime\":\"2021-01-15T07:02:46.3140279+00:00\",\"issued\":\"2021-01-15T07:02:46.3141335+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:28935dcc-7f90-47a2-b989-72d373b9a644\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/2b824c98-84b2-4fd7-b264-eee98cf81267|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://terminology.medlinx.online/medlinx-snomed-extensions\",\"code\":\"1747777777105\",\"display\":\"Отмечаете ли вы изменение цвета кожи в области отека?\"}]},\"effectiveDateTime\":\"2021-01-15T07:02:39.8984689+00:00\",\"issued\":\"2021-01-15T07:02:39.8987086+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"297952003\",\"display\":\"Нормальный цвет кожи\"}],\"text\":\"Нормальный цвет кожи\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:14c56aaf-977a-4d15-ad16-b995ad723bb4\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/6e0b17f6-fca2-4279-8614-6c17cb78b65d|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://terminology.medlinx.online/medlinx-snomed-extensions\",\"code\":\"1757777777108\",\"display\":\"Отмечаете ли вы изменение температуры кожи в области отека?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:48.4662301+00:00\",\"issued\":\"2021-01-15T07:01:48.466348+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"102599008\",\"display\":\"Теплая кожа\"}],\"text\":\"Теплая кожа\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:ea714787-60e4-45e4-bb2f-d6950414a2a5\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/56d417e8-2ab3-4774-977e-fc4a9cae064f|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"267038008\",\"display\":\"Есть ли у вас отеки?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:43.6410805+00:00\",\"issued\":\"2021-01-15T07:01:43.6412374+00:00\",\"hasMember\":[{\"reference\":\"urn:uuid:b1fd792b-0b01-4edc-8587-d53be5f7916f\"}]},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},{\"fullUrl\":\"urn:uuid:b1fd792b-0b01-4edc-8587-d53be5f7916f\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/6f20cc5b-8ecd-43fb-9cc0-5fbb8dd42f3e|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"102558002\",\"display\":\"Есть ли у вас отеки на руках?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:43.6416687+00:00\",\"issued\":\"2021-01-15T07:01:43.6417731+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:5f52f890-886f-4a4e-a93a-13a2dc1756b8\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/56d417e8-2ab3-4774-977e-fc4a9cae064f|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"267038008\",\"display\":\"Есть ли у вас отеки?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:41.467073+00:00\",\"issued\":\"2021-01-15T07:01:41.4671816+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373066001\",\"display\":\"Да\"}],\"text\":\"Да\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:c6abf6d9-9515-46fe-9e42-7d8b6bdd42f1\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/22743034-b3c3-4d41-a191-61e1a21882fb|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"422441003\",\"display\":\"Отмечаете ли вы выпадение бровей?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:35.9064478+00:00\",\"issued\":\"2021-01-15T07:01:35.9065603+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:c26cef70-e0ec-49c6-9c6f-4d0656c6f0c1\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/17de823c-7368-4d51-b10c-ab98361d6f42|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"3716002\",\"display\":\"Есть ли у вас припухлость в области щитовидной железы?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:33.0717956+00:00\",\"issued\":\"2021-01-15T07:01:33.0719216+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373066001\",\"display\":\"Да\"}],\"text\":\"Да\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:c53c79b7-d322-4d30-af9b-81cf6eab7c90\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/73bac3e6-9c3a-47b9-a036-c6fc49cdaa43|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"301919003\",\"display\":\"Отмечаете ли вы выпячивание одного или обоих глаз?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:29.9089931+00:00\",\"issued\":\"2021-01-15T07:01:29.9092323+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:e006cca9-5853-4c8b-8728-d319c5cbfdb7\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/c93dd731-7bd7-4a8e-86dc-a3ad536a3b4b|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"83132003\",\"display\":\"Беспокоит ли вас боль в верхней трети живота?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:25.2973637+00:00\",\"issued\":\"2021-01-15T07:01:25.2975952+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:60d313cd-e4a8-4be0-92c9-903365b846e6\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/dad77f7e-7a0c-406c-b06e-1f47e8a21d64|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://terminology.medlinx.online/medlinx-snomed-extensions\",\"code\":\"2237777777103\",\"display\":\"Укажите какой консистенции был стул за последние 3 дня?\"}]},\"effectiveDateTime\":\"2021-01-15T07:01:12.173029+00:00\",\"issued\":\"2021-01-15T07:01:12.1731973+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"398212009\",\"display\":\"Жидкий\"}],\"text\":\"Жидкий\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:a8f00379-42db-4727-976c-e6f334d180c9\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/da7c1268-0b30-4bf1-b51f-41526265c550|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"179950008\",\"display\":\"Есть ли у вас нарушения дефекации?\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:57.0197344+00:00\",\"issued\":\"2021-01-15T07:00:57.0198444+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:c599ef6b-6acf-401c-8009-3994ee8e205c\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/cfcdd35d-3c10-42aa-8c63-3fe99f2a97ea|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"246975001\",\"display\":\"Есть ли у вас желтушность глаз?\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:51.2387309+00:00\",\"issued\":\"2021-01-15T07:00:51.2389627+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:ac364533-c47f-4412-be68-abe2279b2253\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/bc1b5207-fc19-4950-84b5-a8a234fa7f7b|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://terminology.medlinx.online/medlinx-snomed-extensions\",\"code\":\"3287777777108\",\"display\":\"Возникает ли у вас необходимость оказывать ручное или пальцевое пособие при испражнении?\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:47.4564639+00:00\",\"issued\":\"2021-01-15T07:00:47.4566+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:2a2ec0d5-fb88-453d-a765-08373e006f81\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/49e6f26f-4a66-46ff-ab21-256c3d98db13|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"161891005\",\"display\":\"Беспокоит ли вас боль в спине?\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:40.3972483+00:00\",\"issued\":\"2021-01-15T07:00:40.3974396+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:fdba35ed-7572-436d-8461-7ff2b78dcce9\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/d7624b0f-422e-4490-b6bc-d0d28ace8701|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"54586004\",\"display\":\"Беспокоит ли вас боль в нижней трети живота?\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:37.2427133+00:00\",\"issued\":\"2021-01-15T07:00:37.2428212+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:c2bdcf7c-5c63-4ed8-be16-9281bfcf0abe\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/934cc190-b045-4d8f-8709-275dc202b75f|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"60043000\",\"display\":\"Беспокоит ли вас схваткообразная боль в средней трети живота?\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:26.5176513+00:00\",\"issued\":\"2021-01-15T07:00:26.5177634+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"373067005\",\"display\":\"Нет\"}],\"text\":\"Нет\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:45b5c72e-cecc-43ff-ae86-92bfda13ec0d\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/074a5761-eac0-4297-8a34-e934038651e6|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://terminology.medlinx.online/medlinx-snomed-extensions\",\"code\":\"3897777777109\",\"display\":\"Укажите, что уменьшает боль в средней трети живота\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:14.1226214+00:00\",\"issued\":\"2021-01-15T07:00:14.1227289+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"429147006\",\"display\":\"Изменение положения тела\"}],\"text\":\"Изменение положения тела\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:f39e2794-859f-4ee5-8243-8a4ca9bee456\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/d46b0883-94cb-4c42-9d64-f705db362b60|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://terminology.medlinx.online/medlinx-snomed-extensions\",\"code\":\"4867777777102\",\"display\":\"Оцените постоянство боли в средней трети живота\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:10.9204997+00:00\",\"issued\":\"2021-01-15T07:00:10.9206203+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"426206001\",\"display\":\"Постоянная\"}],\"text\":\"Постоянная\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:bf310cf4-2e26-46e4-9d53-24d48d17b35f\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/9ad26ed1-0825-4c7d-9edf-ed9c6f915df7|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://terminology.medlinx.online/medlinx-snomed-extensions\",\"code\":\"37777777108\",\"display\":\"Укажите степень выраженности боли в средней трети живота\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:08.808034+00:00\",\"issued\":\"2021-01-15T07:00:08.8084118+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"50415004\",\"display\":\"Сильная\"}],\"text\":\"Сильная\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\"fullUrl\":\"urn:uuid:85cef2b6-1794-4bae-af32-4a79e8593acf\",\"resource\":{\"resourceType\":\"Observation\",\"meta\":{\"profile\":[\"http://medzoom.ru/StructureDefinition/de5580c0-a34f-49d4-80f3-5c0b83e42b5e|0.1.0-20201224.120717\"]},\"status\":\"final\",\"code\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"102613000\",\"display\":\"Укажите локализацию боли в животе\"}]},\"effectiveDateTime\":\"2021-01-15T07:00:05.2458083+00:00\",\"issued\":\"2021-01-15T07:00:05.2459161+00:00\",\"valueCodeableConcept\":{\"coding\":[{\"system\":\"http://snomed.info/sct\",\"code\":\"162050009\",\"display\":\"Боль в правом боку\"}],\"text\":\"Боль в правом боку\"}},\"request\":{\"method\":\"POST\",\"url\":\"Observation\"}},\n                {\n            \"fullUrl\": \"urn:uuid:d7b6cc1b-d6a1-491a-83f8-39c79932fa75\",\n            \"resource\": {\n                \"resourceType\": \"Observation\",\n                \"meta\": {\n                    \"profile\": [\n                        \"http://medzoom.ru/StructureDefinition/434ad366-fe92-4de6-aefe-39cee0ae0f91|0.1.0-20201224.120717\"\n                    ]\n                },\n                \"status\": \"final\",\n                \"code\": {\n                    \"coding\": [\n                        {\n                            \"system\": \"http://snomed.info/sct\",\n                            \"code\": \"277896005\",\n                            \"display\": \"Опишите цвет мокроты\"\n                        }\n                    ]\n                },\n                \"subject\": {\n                    \"reference\": \"Patient/1\"\n                },\n                \"effectiveDateTime\": \"2021-01-15T06:48:42.3479052+00:00\",\n                \"issued\": \"2021-01-15T06:48:42.3480139+00:00\",\n                \"valueCodeableConcept\": {\n                    \"coding\": [\n                        {\n                            \"system\": \"http://snomed.info/sct\",\n                            \"code\": \"248604008\",\n                            \"display\": \"Прозрачная\"\n                        }\n                    ],\n                    \"text\": \"Прозрачная\"\n                }\n            },\n            \"request\": {\n                \"method\": \"POST\",\n                \"url\": \"Observation\"\n            }\n        }\n            ]\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lod.medlinx.online/cds/cds/1/cds-services/symptom-checker",
+					"protocol": "https",
+					"host": [
+						"lod",
+						"medlinx",
+						"online"
+					],
+					"path": [
+						"cds",
+						"cds",
+						"1",
+						"cds-services",
+						"symptom-checker"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "clientSecret",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "symptom-checker-access",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "miok",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://auth-stage.medlinx.online/connect/token",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "tokenType",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

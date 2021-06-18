@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 18 2021 г., 20:33
+-- Время создания: Июн 18 2021 г., 21:12
 -- Версия сервера: 10.3.16-MariaDB
 -- Версия PHP: 7.3.6
 
@@ -38,6 +38,27 @@ CREATE TABLE `category` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `dfeed`
+--
+
+CREATE TABLE `dfeed` (
+  `id` int(11) NOT NULL,
+  `content` varchar(4000) NOT NULL,
+  `img` varchar(1000) DEFAULT NULL,
+  `title` varchar(256) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `dfeed`
+--
+
+INSERT INTO `dfeed` (`id`, `content`, `img`, `title`, `date`) VALUES
+(1, 'Первое описание просто болезни на просто человеческом языке', NULL, 'Бяка', '2021-12-12 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `guests`
 --
 
@@ -48,6 +69,27 @@ CREATE TABLE `guests` (
   `dateCreated` datetime NOT NULL,
   `dateExpiers` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `pfeed`
+--
+
+CREATE TABLE `pfeed` (
+  `id` int(11) NOT NULL,
+  `content` varchar(4000) NOT NULL,
+  `img` varchar(1000) DEFAULT NULL,
+  `title` varchar(256) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `pfeed`
+--
+
+INSERT INTO `pfeed` (`id`, `content`, `img`, `title`, `date`) VALUES
+(1, 'Первое описание просто болезни на просто человеческом языке', NULL, 'Бяка', '2021-12-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -79,16 +121,28 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uid`, `pwd`, `category`, `token`) VALUES
-(1, 'test', 'test', 1, '40bc3d7aa8346b89e912f32a163689ddb381d2f3395236869df332d82ac1ca5f44bf5e85ef650dd0d4f212cc90556cb50a765046afccd27097fe611bf4e1cce519f271efdf51df44c93235da03f44831dc3f934ac61a815949b988d3d671874f4ebd449ced6e803b581d52c46048310aef0f8a7eb9127af1a4d4eddbd00dc25c');
+(1, 'test', '$2y$10$.oFInMWyYOZgV9CsP1HFDOsja3XM4y8yfjnNhg4v3TbWDpNueWyW6', 1, '58596faf56ae9025fd538cc9941e71eca7653e6c61ad9efe7ebe40cadb67f72d879e7e32e8cfa0fda046d9e01b3ca3ffc7135dbd2e700a598bb5b6ea8fa2b816156b3c7c1568c87ed4d51dafb1ac439cffd140fc4996451ed36bbadb8a22dd718a2693a0884cf9daf1dd405e7016867d0aa558e869eb13047d0d50d7d0637c9d');
 
 --
 -- Индексы сохранённых таблиц
 --
 
 --
+-- Индексы таблицы `dfeed`
+--
+ALTER TABLE `dfeed`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `guests`
 --
 ALTER TABLE `guests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `pfeed`
+--
+ALTER TABLE `pfeed`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -108,10 +162,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `dfeed`
+--
+ALTER TABLE `dfeed`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT для таблицы `guests`
 --
 ALTER TABLE `guests`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `pfeed`
+--
+ALTER TABLE `pfeed`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `posts`
