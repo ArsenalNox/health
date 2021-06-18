@@ -1,11 +1,13 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header('content-type: application/json');
+
 session_start();
 require_once '../dtb/dtb.php';
 require_once 'functions.php';
 $error = [];
 
 
-header('content-type: application/json');
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_POST['uid']) && isset($_POST['pwd'])){
         $uid = $_POST['uid'];
