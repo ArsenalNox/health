@@ -4,8 +4,7 @@
 		"name": "symptom-checker-api-lod",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
-	"item": [
-		{
+	"item": [{
 			"name": "Search symptoms",
 			"request": {
 				"method": "GET",
@@ -26,8 +25,7 @@
 						"ValueSet",
 						"$expand"
 					],
-					"query": [
-						{
+					"query": [{
 							"key": "url",
 							"value": "http://terminology.medlinx.online/ValueSet/helzy-search-vs"
 						},
@@ -108,8 +106,7 @@
 						"Fhir",
 						"Questionnaire"
 					],
-					"query": [
-						{
+					"query": [{
 							"key": "_count",
 							"value": "1"
 						},
@@ -197,8 +194,7 @@
 	],
 	"auth": {
 		"type": "oauth2",
-		"oauth2": [
-			{
+		"oauth2": [{
 				"key": "clientSecret",
 				"value": "",
 				"type": "string"
@@ -245,8 +241,7 @@
 			}
 		]
 	},
-	"event": [
-		{
+	"event": [{
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",

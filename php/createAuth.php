@@ -9,19 +9,19 @@ $error = [];
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(isset($_POST['uid']) && isset($_POST['pwd'])){
-        $uid = $_POST['uid'];
+    if(isset($_POST['email']) && isset($_POST['pwd'])){
+        $email = $_POST['email'];
         $pwd = $_POST['pwd'];
 
-        $stm = $dtb->prepare("SELECT `id`, `pwd` FROM `users` WHERE `uid`=? ");
-        $stm->bindParam(1, $uid);
+        $stm = $dtb->prepare("SELECT `id`, `pwd` FROM `users` WHERE `email`=? ");
+        $stm->bindParam(1, $email);
         if($stm->execute()){
             if($stm->rowCount() > 0){
                 $accesToken = bin2hex(random_bytes(256));
                 $row = $stm->fetch(PDO::FETCH_ASSOC);
                 if(!password_verify($pwd, $row['pwd'])){
                     errrorDie([
-                        'message' => 'unable to find user', 
+                        'message' => 'Неверный пароль', 
                         'hash'    => $row['pwd'], 
                         'pwd'     => $pwd]
                     );
@@ -31,22 +31,38 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $stm->bindParam(2, $row['id']);
                 if($stm->execute()){
                     $_SESSION['accesToken'] = $accesToken;
-                    errrorDie(['token'=>$accesToken]);
+                    die(json_encode([
+                        'type'  => 'success',
+                        'token' =>  $accesToken]));
                 } else {
-                    errrorDie(['message' => 'error while updating access token']);
+                    errrorDie([
+                        "type"    => 'error',
+                        'message' => 'Ошибка при обновления токена доступа'
+                    ]);
                 }
             } else{
-                errrorDie(['message' => 'unable to find user']);
+                errrorDie([
+                    "type"    => 'error',
+                    'message' => 'Неверный пароль/логин'
+                ]);
             }
         }else{
-            errrorDie(['message' => 'unable to execute query']);
+            errrorDie([
+                'type'   => 'error',
+                'message' => 'Не удалось выполнить запрос к базе данных']);
         }
 
     } else {
-        errrorDie(['message' => 'pwd or uid not set']);
+        errrorDie([
+            'type'    => 'error',
+            'message' => 'Отсутсвует пароль или логин'
+        ]);
     }
 } else {
-        errrorDie(['message' => 'invalid method']);
+        errrorDie([
+            'error'   => 'error',
+            'message' => 'Неправильный метод'
+        ]);
 }
 
 ?>
