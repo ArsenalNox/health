@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 18 2021 г., 21:12
+-- Время создания: Июн 18 2021 г., 22:35
 -- Версия сервера: 10.3.16-MariaDB
 -- Версия PHP: 7.3.6
 
@@ -59,6 +59,28 @@ INSERT INTO `dfeed` (`id`, `content`, `img`, `title`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `doctors`
+--
+
+CREATE TABLE `doctors` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `surename` varchar(200) NOT NULL,
+  `patronymic` varchar(200) NOT NULL,
+  `speciality` int(8) NOT NULL,
+  `schedule` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `doctors`
+--
+
+INSERT INTO `doctors` (`id`, `name`, `surename`, `patronymic`, `speciality`, `schedule`) VALUES
+(1, 'Иван', 'Иванов', 'Иванович', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `guests`
 --
 
@@ -68,6 +90,21 @@ CREATE TABLE `guests` (
   `type` int(11) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateExpiers` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `medcardhistory`
+--
+
+CREATE TABLE `medcardhistory` (
+  `id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `action` varchar(2048) NOT NULL,
+  `target` varchar(2048) NOT NULL,
+  `result` varchar(2048) NOT NULL,
+  `doctor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -105,23 +142,76 @@ CREATE TABLE `posts` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `schedules`
+--
+
+CREATE TABLE `schedules` (
+  `id` int(11) NOT NULL,
+  `mons` time NOT NULL,
+  `mone` time NOT NULL,
+  `tues` time NOT NULL,
+  `tuee` time NOT NULL,
+  `weds` time NOT NULL,
+  `wede` time NOT NULL,
+  `thus` time NOT NULL,
+  `thue` time NOT NULL,
+  `fris` time NOT NULL,
+  `frie` time NOT NULL,
+  `sats` time NOT NULL,
+  `sate` time NOT NULL,
+  `suns` time NOT NULL,
+  `sune` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `schedules`
+--
+
+INSERT INTO `schedules` (`id`, `mons`, `mone`, `tues`, `tuee`, `weds`, `wede`, `thus`, `thue`, `fris`, `frie`, `sats`, `sate`, `suns`, `sune`) VALUES
+(1, '08:00:00', '22:00:00', '08:00:00', '22:00:00', '08:00:00', '22:00:00', '08:00:00', '22:00:00', '08:00:00', '22:00:00', '08:00:00', '22:00:00', '08:00:00', '22:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `specialty`
+--
+
+CREATE TABLE `specialty` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `specialty`
+--
+
+INSERT INTO `specialty` (`id`, `name`) VALUES
+(1, 'Терапевт');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `uid` varchar(2000) NOT NULL,
+  `email` varchar(200) NOT NULL,
   `pwd` varchar(2048) NOT NULL,
-  `category` int(11) NOT NULL,
-  `token` varchar(256) DEFAULT NULL
+  `token` varchar(256) DEFAULT 'NULL',
+  `category` int(11) DEFAULT NULL,
+  `name` varchar(2000) NOT NULL,
+  `surename` varchar(2000) DEFAULT NULL,
+  `patronymic` varchar(2000) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `uid`, `pwd`, `category`, `token`) VALUES
-(1, 'test', '$2y$10$.oFInMWyYOZgV9CsP1HFDOsja3XM4y8yfjnNhg4v3TbWDpNueWyW6', 1, '58596faf56ae9025fd538cc9941e71eca7653e6c61ad9efe7ebe40cadb67f72d879e7e32e8cfa0fda046d9e01b3ca3ffc7135dbd2e700a598bb5b6ea8fa2b816156b3c7c1568c87ed4d51dafb1ac439cffd140fc4996451ed36bbadb8a22dd718a2693a0884cf9daf1dd405e7016867d0aa558e869eb13047d0d50d7d0637c9d');
+INSERT INTO `users` (`id`, `email`, `pwd`, `token`, `category`, `name`, `surename`, `patronymic`) VALUES
+(1, 'test@test.ru', '$2y$10$.oFInMWyYOZgV9CsP1HFDOsja3XM4y8yfjnNhg4v3TbWDpNueWyW6', '334d0b2c27c24a02bc12982915169aed27e753f3ab97212ece8c9407baff9d6ed151aec7190fce7adfb534adc92e116aefd84e7bff25c908759bbf1b21f273db7be50a017e1a89f505e636e2f5b928f0018fe39870c430be50dc58c23f02aaf0e24101e42ba782701bf5c962aaf78c8d37c4952702e54cff721082626b0d52ef', 1, 'test', '', ''),
+(2, 'test1@test.ru', '$2y$10$KSRlzOGTsgbr8myIDI1q.e2cfPIW9pjC/jMznsDQS8Sv9IbXVKkq.', 'a88eae7b0d43fee0cd76053b490332e7dab48526df0aff8198488ed9a0b4eebfca23e0e775620adaeddf94ec977aca1110c86bf1a26dd49a8784ab9e0c89c9ff091e71c0c304d89287a8d56457bd3c4c05d0cbff6d18938a89fe7c5fe60594a2b0aaafe5a704d998d1ca4290db5838046e21c85cc93e07f8652214f045ade996', NULL, 'testAdam', NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -134,10 +224,26 @@ ALTER TABLE `dfeed`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `doctors`
+--
+ALTER TABLE `doctors`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `schedule` (`schedule`),
+  ADD KEY `speciality` (`speciality`);
+
+--
 -- Индексы таблицы `guests`
 --
 ALTER TABLE `guests`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `medcardhistory`
+--
+ALTER TABLE `medcardhistory`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uid` (`uid`),
+  ADD KEY `doctor` (`doctor`);
 
 --
 -- Индексы таблицы `pfeed`
@@ -149,6 +255,18 @@ ALTER TABLE `pfeed`
 -- Индексы таблицы `posts`
 --
 ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `schedules`
+--
+ALTER TABLE `schedules`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `specialty`
+--
+ALTER TABLE `specialty`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -168,9 +286,21 @@ ALTER TABLE `dfeed`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT для таблицы `doctors`
+--
+ALTER TABLE `doctors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT для таблицы `guests`
 --
 ALTER TABLE `guests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `medcardhistory`
+--
+ALTER TABLE `medcardhistory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -186,10 +316,40 @@ ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT для таблицы `schedules`
+--
+ALTER TABLE `schedules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `specialty`
+--
+ALTER TABLE `specialty`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `doctors`
+--
+ALTER TABLE `doctors`
+  ADD CONSTRAINT `doctors_ibfk_1` FOREIGN KEY (`schedule`) REFERENCES `schedules` (`id`),
+  ADD CONSTRAINT `doctors_ibfk_2` FOREIGN KEY (`speciality`) REFERENCES `specialty` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `medcardhistory`
+--
+ALTER TABLE `medcardhistory`
+  ADD CONSTRAINT `medcardhistory_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `medcardhistory_ibfk_2` FOREIGN KEY (`doctor`) REFERENCES `doctors` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
