@@ -31,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $stm->bindParam(2, $row['id']);
                 if($stm->execute()){
                     $_SESSION['accesToken'] = $accesToken;
-                    errrorDie(json_encode(['token'=>$accesToken]));
+                    errrorDie(['token'=>$accesToken]);
                 } else {
                     errrorDie(['message' => 'error while updating access token']);
                 }
