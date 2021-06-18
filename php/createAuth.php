@@ -1,6 +1,7 @@
 <?php
+session_start();
 require_once '../dtb/dtb.php';
-require_once 'function.php';
+require_once 'functions.php';
 $error = [];
 
 
@@ -10,19 +11,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $uid = $_POST['uid'];
         $pwd = $_POST['pwd'];
 
-        $stm = $dtb->prepare("SELECT `id` FROM `users` WHERE `uid`=? AND `pwd`=? ");
+        $stm = $dtb->prepare("SELECT `id`, `pwd` FROM `users` WHERE `uid`=? ");
         $stm->bindParam(1, $uid);
-        $stm->bindParam(2, $pwd);
         if($stm->execute()){
             if($stm->rowCount() > 0){
                 $accesToken = bin2hex(random_bytes(256));
                 $row = $stm->fetch(PDO::FETCH_ASSOC);
-
+                if(!password_verify($pwd, $row['pwd'])){
+                    errrorDie([
+                        'message' => 'unable to find user', 
+                        'hash'    => $row['pwd'], 
+                        'pwd'     => $pwd]
+                    );
+                }
                 $stm = $dtb->prepare("UPDATE `users` SET `token`=? WHERE `id`=?");
                 $stm->bindParam(1, $accesToken);
                 $stm->bindParam(2, $row['id']);
                 if($stm->execute()){
-                    die(json_encode($accesToken));
+                    $_SESSION['accesToken'] = $accesToken;
+                    errrorDie(json_encode($accesToken));
                 } else {
                     errrorDie(['message' => 'error while updating access token']);
                 }
