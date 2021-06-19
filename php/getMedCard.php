@@ -1,6 +1,5 @@
 <?php
 
-use Psy\CodeCleaner\IssetPass;
 
 require_once '../dtb/dtb.php'; 
 require_once 'functions.php'; 

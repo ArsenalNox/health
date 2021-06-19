@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $stm->bindParam(1, $email);
         if($stm->execute()){
             if($stm->rowCount() > 0){
-                $accesToken = bin2hex(random_bytes(256));
+                $accesToken = bin2hex(random_bytes(128));
                 $row = $stm->fetch(PDO::FETCH_ASSOC);
                 if(!password_verify($pwd, $row['pwd'])){
                     errrorDie([
