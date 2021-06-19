@@ -14,7 +14,7 @@ if($_SERVER['REQUEST_METHOD'] !== 'POST'){
     ]);
 }
 
-if(isAuth()){
+if(False){ //Старая секция, функционал переехал в createAppt.php
     if(isset($_POST['docuid'])){
         $uid = getUserId();
         if($uid !== false){
