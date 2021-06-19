@@ -1,5 +1,5 @@
 <?php
-//Списки докторов
+//Список отделений \ врачей
 
 require_once '../dtb/dtb.php';
 require_once 'functions.php';

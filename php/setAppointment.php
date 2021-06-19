@@ -35,7 +35,7 @@ if(isAuth()){
             if($stm->execute()){
                 die(json_encode([
                     'type'    => 'success',
-                    'message' => 'Запись созданна'
+                    'message' => 'Ваша заявка оставленна'
                 ]));
             } else {
                 errrorDie([
@@ -81,7 +81,7 @@ if(isAuth()){
             if($stm->execute()){
                 die(json_encode([
                     'type'    => 'success',
-                    'message' => 'Запись гостевая запись созданна'
+                    'message' => 'Ваша заявка оставленна'
                 ]));
             } else {
                 errrorDie([

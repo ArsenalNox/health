@@ -17,6 +17,7 @@ if(isAuth()){
     $stm->bindParam(4, $result);
     $stm->bindParam(5, $doctor);
     $stm->bindParam(6, $_POST['appt']);
+
     if($stm->execute()){
         die(json_encode([
             'type' => 'success',

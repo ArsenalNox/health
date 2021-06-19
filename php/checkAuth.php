@@ -31,8 +31,8 @@ function isAuth(){
                 }
             }
         }
-        return false;
     }
+    return false;
 }
 
 function getUserId(){ 
