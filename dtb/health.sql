@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 19 2021 г., 02:14
+-- Время создания: Июн 19 2021 г., 06:51
 -- Версия сервера: 10.3.16-MariaDB
 -- Версия PHP: 7.3.6
 
@@ -31,12 +31,25 @@ SET time_zone = "+00:00";
 CREATE TABLE `appointments` (
   `id` int(11) NOT NULL,
   `did` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
+  `uid` int(11) DEFAULT NULL,
+  `guid` int(11) DEFAULT NULL,
+  `date` date NOT NULL,
   `time` time NOT NULL,
-  `room` int(11) NOT NULL,
-  `action` varchar(300) NOT NULL,
-  `sid` int(11) NOT NULL
+  `sid` int(11) NOT NULL,
+  `state` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `did`, `uid`, `guid`, `date`, `time`, `sid`, `state`) VALUES
+(1, 1, 1, NULL, '2021-12-12', '12:12:00', 1, 'подтверждён'),
+(2, 1, 1, NULL, '2021-06-19', '03:00:21', 1, 'Ожидает подтвержения'),
+(3, 1, 1, NULL, '2021-06-19', '03:00:39', 1, 'Ожидает подтвержения'),
+(4, 1, 1, NULL, '2021-06-19', '03:47:05', 1, 'Ожидает подтвержения'),
+(7, 1, NULL, 1, '2021-06-19', '03:53:03', 1, 'Ожидает подтвержения'),
+(8, 1, 1, NULL, '2021-04-14', '12:12:00', 1, 'завершён');
 
 -- --------------------------------------------------------
 
@@ -123,16 +136,17 @@ CREATE TABLE `doctors` (
   `patronymic` varchar(200) NOT NULL,
   `speciality` int(8) NOT NULL,
   `schedule` int(8) NOT NULL,
-  `departament` int(11) NOT NULL
+  `departament` int(11) NOT NULL,
+  `room` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `doctors`
 --
 
-INSERT INTO `doctors` (`id`, `name`, `surename`, `patronymic`, `speciality`, `schedule`, `departament`) VALUES
-(1, 'Иван', 'Иванов', 'Иванович', 1, 1, 1),
-(2, 'Сергеев', 'Сергей', 'Сергеевич', 1, 1, 1);
+INSERT INTO `doctors` (`id`, `name`, `surename`, `patronymic`, `speciality`, `schedule`, `departament`, `room`) VALUES
+(1, 'Иван', 'Иванов', 'Иванович', 1, 1, 1, 102),
+(2, 'Сергеев', 'Сергей', 'Сергеевич', 1, 1, 1, 103);
 
 -- --------------------------------------------------------
 
@@ -142,11 +156,17 @@ INSERT INTO `doctors` (`id`, `name`, `surename`, `patronymic`, `speciality`, `sc
 
 CREATE TABLE `guests` (
   `id` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
   `dateCreated` datetime NOT NULL,
-  `dateExpiers` datetime NOT NULL
+  `name` varchar(200) NOT NULL,
+  `phone` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `guests`
+--
+
+INSERT INTO `guests` (`id`, `dateCreated`, `name`, `phone`) VALUES
+(1, '2021-06-19 00:00:00', 'Игорь', '76058928888');
 
 -- --------------------------------------------------------
 
@@ -158,10 +178,19 @@ CREATE TABLE `medcardhistory` (
   `id` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `action` varchar(2048) NOT NULL,
-  `target` varchar(2048) NOT NULL,
+  `textContent` varchar(5552) NOT NULL,
   `result` varchar(2048) NOT NULL,
-  `doctor` int(11) NOT NULL
+  `doctor` int(11) NOT NULL,
+  `appt` int(11) NOT NULL,
+  `pdf` varchar(1024) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `medcardhistory`
+--
+
+INSERT INTO `medcardhistory` (`id`, `uid`, `action`, `textContent`, `result`, `doctor`, `appt`, `pdf`) VALUES
+(1, 2, 'pills', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure esse suscipit praesentium illum debitis omnis, quaerat dolorum, dolor corrupti dicta voluptates eligendi aperiam expedita mollitia ea, maxime sunt voluptate optia\"', 'Без изменений', 1, 8, NULL);
 
 -- --------------------------------------------------------
 
@@ -174,15 +203,17 @@ CREATE TABLE `pfeed` (
   `content` varchar(4000) NOT NULL,
   `img` varchar(1000) DEFAULT NULL,
   `title` varchar(256) NOT NULL,
-  `date` datetime NOT NULL
+  `date` datetime NOT NULL,
+  `type` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `pfeed`
 --
 
-INSERT INTO `pfeed` (`id`, `content`, `img`, `title`, `date`) VALUES
-(1, 'Объявляется начало вакцинации против covid-19, вакцинация бесплатная и проводится с 11:00 до 16:00 каждый день. ', NULL, 'Бяка', '2021-12-12 00:00:00');
+INSERT INTO `pfeed` (`id`, `content`, `img`, `title`, `date`, `type`) VALUES
+(1, 'Объявляется начало вакцинации против covid-19, вакцинация бесплатная и проводится с 11:00 до 16:00 каждый день. ', NULL, 'Вакцинация', '2021-12-12 00:00:00', 'Вакцинация'),
+(2, 'Кампания здоровая еда в каждый дом открывается! Совместно с МАГАЗИН1 Мы предлагаем вам скидки на здоровую пищу в размере до 70%.', NULL, 'Акция совместно с МАГАЗИН1', '2021-12-11 00:00:00', 'Акция');
 
 -- --------------------------------------------------------
 
@@ -302,6 +333,7 @@ INSERT INTO `users` (`id`, `email`, `pwd`, `token`, `category`, `name`, `surenam
 ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `did` (`did`),
+  ADD KEY `uid` (`uid`),
   ADD KEY `sid` (`sid`);
 
 --
@@ -345,7 +377,8 @@ ALTER TABLE `guests`
 ALTER TABLE `medcardhistory`
   ADD PRIMARY KEY (`id`),
   ADD KEY `uid` (`uid`),
-  ADD KEY `doctor` (`doctor`);
+  ADD KEY `doctor` (`doctor`),
+  ADD KEY `appt` (`appt`);
 
 --
 -- Индексы таблицы `pfeed`
@@ -391,7 +424,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `depos`
@@ -421,19 +454,19 @@ ALTER TABLE `doctors`
 -- AUTO_INCREMENT для таблицы `guests`
 --
 ALTER TABLE `guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `medcardhistory`
 --
 ALTER TABLE `medcardhistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `pfeed`
 --
 ALTER TABLE `pfeed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `posts`
@@ -474,7 +507,9 @@ ALTER TABLE `users`
 --
 ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`did`) REFERENCES `doctors` (`id`),
-  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `services` (`id`);
+  ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `services` (`id`),
+  ADD CONSTRAINT `appointments_ibfk_3` FOREIGN KEY (`uid`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `appointments_ibfk_4` FOREIGN KEY (`sid`) REFERENCES `services` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `docsevices`
@@ -496,7 +531,8 @@ ALTER TABLE `doctors`
 --
 ALTER TABLE `medcardhistory`
   ADD CONSTRAINT `medcardhistory_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `medcardhistory_ibfk_2` FOREIGN KEY (`doctor`) REFERENCES `doctors` (`id`);
+  ADD CONSTRAINT `medcardhistory_ibfk_2` FOREIGN KEY (`doctor`) REFERENCES `doctors` (`id`),
+  ADD CONSTRAINT `medcardhistory_ibfk_3` FOREIGN KEY (`appt`) REFERENCES `appointments` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

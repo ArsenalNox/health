@@ -1,5 +1,6 @@
 <?php
 //Устанавливает направление к врачу
+
 session_start();
 
 require_once '../dtb/dtb.php';
@@ -56,9 +57,49 @@ if(isAuth()){
             'message' => 'Отсутсвует айди доктора'
         ]);
     }
-} else {
-    errrorDie([
-        'type'    => 'error',
-        'message' => 'Пользователь не авторизирован'
-    ]);
+} else { //Быстрая запись
+    if(isset($_POST['docuid'])){
+        if(isset($_POST['name']) && isset($_POST['phone'])){
+            $name = $_POST['name'];
+            $phone = $_POST['phone'];
+            $dateToday = date('Y-m-d');
+            $time      = date('H:i:s');
+            $sid = 1;
+            $status = 'Ожидает подтвержения';
+
+            $stm = $dtb->prepare("INSERT INTO `appointments`(`did`,`guid`,`sid`,`date`,`time`,`state`) VALUES(?,?,?,?,?,?)");
+
+            $guid = createGuest($name, $phone);
+
+            $stm->bindParam(1, $_POST['docuid']);
+            $stm->bindParam(2, $guid);
+            $stm->bindParam(3, $sid);
+            $stm->bindParam(4, $dateToday);
+            $stm->bindParam(5, $time);
+            $stm->bindParam(6, $status);
+
+            if($stm->execute()){
+                die(json_encode([
+                    'type'    => 'success',
+                    'message' => 'Запись гостевая запись созданна'
+                ]));
+            } else {
+                errrorDie([
+                    'type'    => 'error',
+                    'message' => 'Не удалось создать запись',
+                    'data'    => [$dateToday, $time, $status, $sid, $uid, $_POST['docuid']]
+                ]);
+            }
+        } else {
+            errrorDie([
+                'type'    => 'error',
+                'message' => 'Отсутствуют поля телефона'
+            ]);
+        }
+    } else {
+        errrorDie([
+            'type'    => 'error',
+            'message' => 'Отсутсвует айди доктора'
+        ]);
+    }
 }
