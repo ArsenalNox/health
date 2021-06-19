@@ -56,6 +56,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
     }
 
-    die(json_encode(['result'=>$result]));
+    die(json_encode([
+        'type' => 'success',
+        'data'=>$result
+    ]));
 }
 ?>
