@@ -28,7 +28,7 @@
 <hr>
 <ol>
     <li>Любая 64-битная ос</li>
-    <li>php 7+, apache, maraiadb</li>
+    <li>php 7+, apache, mariadb</li>
 
 <h3>Требования для api с mongodb</h3> 
 <ol>
@@ -41,9 +41,7 @@
 <ol>
     <li> Скачать/установить mongodb community edition </li>
     <li> Запустить локальный сервер, находящийся в  </li>
-    ~~~
     c:\program files\mongodb\server\4.4\bin\mongod.exe
-    ~~~
     <li> айпи\порт для подключения можно посмореть при завершении запуска в конце вывода либо в mongo.exe</li>
     <li> Зайти в mongodb compass, подключится к серверу </li>
     <li> Создать бд (health) с пустой коллекцей (diseases), в коллекцию импортировать файл dtb.json из dtb/ </li>

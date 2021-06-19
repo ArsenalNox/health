@@ -1,0 +1,451 @@
+{
+	"info": {
+		"_postman_id": "40a1f172-b9fd-4d1d-ade6-788d811fe747",
+		"name": "Health",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localMongoDbApi",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bodyPart\": [\"голова\"],\r\n    \"sympt\": [\"головная боль\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:5000/pl",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get med cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "appt",
+							"value": "8",
+							"type": "text"
+						},
+						{
+							"key": "action",
+							"value": "pills",
+							"type": "text"
+						},
+						{
+							"key": "accesToken",
+							"value": "d1718923556331fc6addd384cbc33772b5506dd0d6c462815fa0fe4c859a715e0053284e3fc5bc994500ba730745c24b9d10511ae2d850f2435b1ba941d838f6061e0055f0e496dec981f9b3bd8bb896386069583a0ac249d4e60bc081d3a2cd96c60bf72d9a6621fef783d83f2d5b6c944cb55bdd3043f5150fa436083f8e86",
+							"type": "text"
+						},
+						{
+							"key": "result",
+							"value": "Без изменений",
+							"type": "text"
+						},
+						{
+							"key": "doctor",
+							"value": "1",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/health/php/medCardAdd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"medCardAdd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test4@test.ru",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "testb",
+							"type": "text"
+						},
+						{
+							"key": "pwd",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/health/php/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search query",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "query",
+							"value": "",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/health/php/search?query=Тер",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"search"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Тер"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get doctor list",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "search_method",
+							"value": "departament",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/health/php/getDoctors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"getDoctors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "set appointment for guests",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accesToken",
+							"value": "334d0b2c27c24a02bc12982915169aed27e753f3ab97212ece8c9407baff9d6ed151aec7190fce7adfb534adc92e116aefd84e7bff25c908759bbf1b21f273db7be50a017e1a89f505e636e2f5b928f0018fe39870c430be50dc58c23f02aaf0e24101e42ba782701bf5c962aaf78c8d37c4952702e54cff721082626b0d52ef",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "docuid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Игорь",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "76058928888",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/health/php/setAppointment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"setAppointment"
+					],
+					"query": [
+						{
+							"key": "accesToken",
+							"value": "334d0b2c27c24a02bc12982915169aed27e753f3ab97212ece8c9407baff9d6ed151aec7190fce7adfb534adc92e116aefd84e7bff25c908759bbf1b21f273db7be50a017e1a89f505e636e2f5b928f0018fe39870c430be50dc58c23f02aaf0e24101e42ba782701bf5c962aaf78c8d37c4952702e54cff721082626b0d52ef",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get medical card info",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accesToken",
+							"value": "334d0b2c27c24a02bc12982915169aed27e753f3ab97212ece8c9407baff9d6ed151aec7190fce7adfb534adc92e116aefd84e7bff25c908759bbf1b21f273db7be50a017e1a89f505e636e2f5b928f0018fe39870c430be50dc58c23f02aaf0e24101e42ba782701bf5c962aaf78c8d37c4952702e54cff721082626b0d52ef",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/health/php/getMedCard",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"getMedCard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all posts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test@test.ru",
+							"type": "text"
+						},
+						{
+							"key": "pwd",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/health/php/getpfeed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"getpfeed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create appt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accesToken",
+							"value": "334d0b2c27c24a02bc12982915169aed27e753f3ab97212ece8c9407baff9d6ed151aec7190fce7adfb534adc92e116aefd84e7bff25c908759bbf1b21f273db7be50a017e1a89f505e636e2f5b928f0018fe39870c430be50dc58c23f02aaf0e24101e42ba782701bf5c962aaf78c8d37c4952702e54cff721082626b0d52ef",
+							"type": "text"
+						},
+						{
+							"key": "did",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "sid",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "time",
+							"value": "13:00:00",
+							"type": "text"
+						},
+						{
+							"key": "date",
+							"value": "2021-6-24",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/health/php/createAppt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"createAppt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all appt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accesToken",
+							"value": "05d6f4869cb5c8bcc806077325814d8773d35dc61c8e3bbbfc944ca2c715f6624bece6a5e8a3ae4f8b8465d9627ff6da25b909962291d90a9e098f6844780efd8c9ad2fff0d8b98be2924ef3ba9bb0d6aedcea292588b5c604d605fe83f10317d9420c994971b10b9e8a91effbdc4a38c52afca0a0354fd5dab228f20a5acd12",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/health/php/getAppt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"getAppt"
+					],
+					"query": [
+						{
+							"key": "accesToken",
+							"value": "05d6f4869cb5c8bcc806077325814d8773d35dc61c8e3bbbfc944ca2c715f6624bece6a5e8a3ae4f8b8465d9627ff6da25b909962291d90a9e098f6844780efd8c9ad2fff0d8b98be2924ef3ba9bb0d6aedcea292588b5c604d605fe83f10317d9420c994971b10b9e8a91effbdc4a38c52afca0a0354fd5dab228f20a5acd12",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/health/php/profileData",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "accesToken",
+							"value": "d1718923556331fc6addd384cbc33772b5506dd0d6c462815fa0fe4c859a715e0053284e3fc5bc994500ba730745c24b9d10511ae2d850f2435b1ba941d838f6061e0055f0e496dec981f9b3bd8bb896386069583a0ac249d4e60bc081d3a2cd96c60bf72d9a6621fef783d83f2d5b6c944cb55bdd3043f5150fa436083f8e86",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/health/php/profileData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"health",
+						"php",
+						"profileData"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
