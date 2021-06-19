@@ -25,7 +25,7 @@ if(isAuth()){
         ]));
     } else {
         errrorDie([
-            'success'    => 'error',
+            'type'    => 'error',
             'message'    => 'Не прошёл запрос',
             'errorInfo'  => $stm->errorInfo()
         ]);

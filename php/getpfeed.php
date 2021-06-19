@@ -10,7 +10,7 @@ if($stm->execute()){
         $posts[] = $row;
     }
     die(json_encode([
-        'success' => 'true',
+        'type' => 'success',
         'data' => $posts
     ]));    
 }

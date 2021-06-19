@@ -21,7 +21,7 @@ if(isAuth()){
         appointments.state,
         appointments.sid
 
-    FROM medcardhistory LEFT JOIN appointments ON medcardhistory.appt = appointments.id WHERE medcardhistory.uid = ?");
+    FROM medcardhistory LEFT JOIN appointments ON medcardhistory.appt = appointments.id WHERE medcardhistory.uid = ? ORDER BY appointments.date ASC");
     $stm->bindParam(1, $uid);
     if($stm->execute()){
         $data['appointments_complete'] = [];
@@ -37,7 +37,7 @@ if(isAuth()){
     }
 
 
-    $stm = $dtb->prepare("SELECT * FROM appointments WHERE uid=?");
+    $stm = $dtb->prepare("SELECT * FROM appointments WHERE uid=? ORDER BY date ASC");
     $stm->bindParam(1, $uid);
     if($stm->execute()){
         $data['appointments_planned'] = [];
