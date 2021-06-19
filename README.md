@@ -37,7 +37,6 @@
     <li>локальная копия бд     </li>
 </ol>
 
-###База данных
 <h3>Для mongodb</h3>
 <ol>
     <li> Скачать/установить mongodb community edition </li>
