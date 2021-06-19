@@ -12,13 +12,30 @@ db = client.health
 collection = db.diseases
 
 
-@app.route('/')
+@app.route('/pl')
 def index():
     curs = collection.find( {"$and": [
             {"bodyPartReported": {"$in": request.json['bodyPart']} },
             {"symptoms": {"$in": request.json['sympt']}} 
             ]
         })
+    listAll = []
+    for result in curs:
+        listAll.append(
+        {'result': { 
+        'name_sci': result['name_sci'],
+        'name':     result['name_simple'],
+        'desc':     result['description'],
+        'affected': result['bodyPartAffected'],
+        'symptoms': result['symptoms']
+        }}
+        )
+    listAll.append({"result_count": curs.count()})
+    return jsonify(listAll)
+
+@app.route('/byname')
+def byname():
+    curs = collection.find({"name_simple": request.json['name']})
     listAll = []
     for result in curs:
         listAll.append(
