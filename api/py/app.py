@@ -15,7 +15,7 @@ collection = db.diseases
 @app.route('/')
 def index():
     curs = collection.find( {"$and": [
-            {"bodyPart_reported": {"$in": request.json['bodyPart']} },
+            {"bodyPartReported": {"$in": request.json['bodyPart']} },
             {"symptoms": {"$in": request.json['sympt']}} 
             ]
         })

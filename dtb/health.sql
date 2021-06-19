@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 19 2021 г., 06:51
+-- Время создания: Июн 19 2021 г., 14:26
 -- Версия сервера: 10.3.16-MariaDB
 -- Версия PHP: 7.3.6
 
@@ -49,7 +49,8 @@ INSERT INTO `appointments` (`id`, `did`, `uid`, `guid`, `date`, `time`, `sid`, `
 (3, 1, 1, NULL, '2021-06-19', '03:00:39', 1, 'Ожидает подтвержения'),
 (4, 1, 1, NULL, '2021-06-19', '03:47:05', 1, 'Ожидает подтвержения'),
 (7, 1, NULL, 1, '2021-06-19', '03:53:03', 1, 'Ожидает подтвержения'),
-(8, 1, 1, NULL, '2021-04-14', '12:12:00', 1, 'завершён');
+(8, 1, 1, NULL, '2021-04-14', '12:12:00', 1, 'завершён'),
+(9, 1, NULL, 1, '2021-06-19', '11:01:44', 1, 'Ожидает подтвержения');
 
 -- --------------------------------------------------------
 
@@ -81,7 +82,7 @@ CREATE TABLE `depos` (
 
 INSERT INTO `depos` (`id`, `depo`) VALUES
 (1, 'Терапевтическое'),
-(2, 'Гинекологическое ');
+(2, 'Травматологическое');
 
 -- --------------------------------------------------------
 
@@ -190,7 +191,23 @@ CREATE TABLE `medcardhistory` (
 --
 
 INSERT INTO `medcardhistory` (`id`, `uid`, `action`, `textContent`, `result`, `doctor`, `appt`, `pdf`) VALUES
-(1, 2, 'pills', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure esse suscipit praesentium illum debitis omnis, quaerat dolorum, dolor corrupti dicta voluptates eligendi aperiam expedita mollitia ea, maxime sunt voluptate optia\"', 'Без изменений', 1, 8, NULL);
+(1, 1, 'pills', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure esse suscipit praesentium illum debitis omnis, quaerat dolorum, dolor corrupti dicta voluptates eligendi aperiam expedita mollitia ea, maxime sunt voluptate optia\"', 'Без изменений', 1, 8, NULL),
+(2, 2, 'pills', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure esse suscipit praesentium illum debitis omnis, quaerat dolorum, dolor corrupti dicta voluptates eligendi aperiam expedita mollitia ea, maxime sunt voluptate optia\"', 'Без изменений', 1, 8, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `passport`
+--
+
+CREATE TABLE `passport` (
+  `id` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `serial` int(12) NOT NULL,
+  `number` int(12) NOT NULL,
+  `givenby` varchar(300) NOT NULL,
+  `residense` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -204,16 +221,19 @@ CREATE TABLE `pfeed` (
   `img` varchar(1000) DEFAULT NULL,
   `title` varchar(256) NOT NULL,
   `date` datetime NOT NULL,
-  `type` varchar(200) NOT NULL
+  `type` varchar(200) NOT NULL,
+  `author` int(11) DEFAULT NULL,
+  `depo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `pfeed`
 --
 
-INSERT INTO `pfeed` (`id`, `content`, `img`, `title`, `date`, `type`) VALUES
-(1, 'Объявляется начало вакцинации против covid-19, вакцинация бесплатная и проводится с 11:00 до 16:00 каждый день. ', NULL, 'Вакцинация', '2021-12-12 00:00:00', 'Вакцинация'),
-(2, 'Кампания здоровая еда в каждый дом открывается! Совместно с МАГАЗИН1 Мы предлагаем вам скидки на здоровую пищу в размере до 70%.', NULL, 'Акция совместно с МАГАЗИН1', '2021-12-11 00:00:00', 'Акция');
+INSERT INTO `pfeed` (`id`, `content`, `img`, `title`, `date`, `type`, `author`, `depo`) VALUES
+(1, 'Объявляется начало вакцинации против covid-19, вакцинация бесплатная и проводится с 11:00 до 16:00 каждый день. ', NULL, 'Начало вакцинации', '2021-12-12 00:00:00', 'Вакцинация', NULL, 0),
+(2, 'Кампания здоровая еда в каждый дом открывается! Совместно с МАГАЗИН1 Мы предлагаем вам скидки на здоровую пищу в размере до 70%.', NULL, 'Акция совместно с МАГАЗИН1', '2021-12-11 00:00:00', 'Акция', NULL, 0),
+(3, 'На связи отдел травматалогии! Рады сообщить, что рубрика \"Просто о сложном\" наконец-то вышла в свет. В этой рубрике мы будем рассказывать вам простыми словами про медицину. ', NULL, 'Просто о сложном', '2020-12-12 00:00:00', 'announcement', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -222,8 +242,7 @@ INSERT INTO `pfeed` (`id`, `content`, `img`, `title`, `date`, `type`) VALUES
 --
 
 CREATE TABLE `posts` (
-  `id` int(11) NOT NULL,
-  `name` varchar(200) NOT NULL
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -381,6 +400,13 @@ ALTER TABLE `medcardhistory`
   ADD KEY `appt` (`appt`);
 
 --
+-- Индексы таблицы `passport`
+--
+ALTER TABLE `passport`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uid` (`uid`);
+
+--
 -- Индексы таблицы `pfeed`
 --
 ALTER TABLE `pfeed`
@@ -424,7 +450,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `depos`
@@ -460,13 +486,19 @@ ALTER TABLE `guests`
 -- AUTO_INCREMENT для таблицы `medcardhistory`
 --
 ALTER TABLE `medcardhistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `passport`
+--
+ALTER TABLE `passport`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `pfeed`
 --
 ALTER TABLE `pfeed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `posts`
@@ -533,6 +565,12 @@ ALTER TABLE `medcardhistory`
   ADD CONSTRAINT `medcardhistory_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `medcardhistory_ibfk_2` FOREIGN KEY (`doctor`) REFERENCES `doctors` (`id`),
   ADD CONSTRAINT `medcardhistory_ibfk_3` FOREIGN KEY (`appt`) REFERENCES `appointments` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `passport`
+--
+ALTER TABLE `passport`
+  ADD CONSTRAINT `passport_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
