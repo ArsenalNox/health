@@ -1,11 +1,13 @@
 <?php
+//Списки докторов
+
 require_once '../dtb/dtb.php';
 require_once 'functions.php';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset($_POST['search_method'])){
         switch($_POST['search_method']){
-            case 'departament':
+            case 'departament': //Получаение списка отделений 
                 $stm= $dtb->prepare("SELECT * FROM depos");
                 if($stm->execute()){
                     $depos = [];
@@ -22,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     ]));
                 }
                 break;
-            case 'spec':
+            case 'spec': //Получаение списка врачей отделения 
                 $stm= $dtb->prepare("SELECT * FROM doctors WHERE departament = ?");
                 if(!isset($_POST['id'])) {
                     errrorDie([

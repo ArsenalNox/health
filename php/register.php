@@ -1,6 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header('content-type: application/json');
+//Регистрация 
 
 session_start();
 require_once '../dtb/dtb.php';
