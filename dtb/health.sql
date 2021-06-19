@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 19 2021 г., 15:41
+-- Время создания: Июн 19 2021 г., 22:12
 -- Версия сервера: 10.3.16-MariaDB
 -- Версия PHP: 7.3.6
 
@@ -44,26 +44,13 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `did`, `uid`, `guid`, `date`, `time`, `sid`, `state`) VALUES
-(1, 1, 1, NULL, '2021-12-12', '12:12:00', 1, 'подтверждён'),
 (2, 1, 1, NULL, '2021-06-19', '03:00:21', 1, 'Ожидает подтвержения'),
 (3, 1, 1, NULL, '2021-06-19', '03:00:39', 1, 'Ожидает подтвержения'),
 (4, 1, 1, NULL, '2021-06-19', '03:47:05', 1, 'Ожидает подтвержения'),
 (7, 1, NULL, 1, '2021-06-19', '03:53:03', 1, 'Ожидает подтвержения'),
 (8, 1, 1, NULL, '2021-04-14', '12:12:00', 1, 'завершён'),
-(9, 1, NULL, 1, '2021-06-19', '11:01:44', 1, 'Ожидает подтвержения');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `category`
---
-
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
-  `name` int(11) NOT NULL,
-  `desc` int(11) NOT NULL,
-  `severity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+(9, 1, NULL, 1, '2021-06-19', '11:01:44', 1, 'Ожидает подтвержения'),
+(10, 1, 1, NULL, '2021-06-24', '13:00:00', 1, 'ожидает подтверждения');
 
 -- --------------------------------------------------------
 
@@ -206,8 +193,16 @@ CREATE TABLE `passport` (
   `serial` int(12) NOT NULL,
   `number` int(12) NOT NULL,
   `givenby` varchar(300) NOT NULL,
-  `residense` varchar(200) NOT NULL
+  `residense` varchar(200) NOT NULL,
+  `code` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `passport`
+--
+
+INSERT INTO `passport` (`id`, `uid`, `serial`, `number`, `givenby`, `residense`, `code`) VALUES
+(1, 1, 5231, 716276, 'Отделом УФМС росси по нной области классического района', 'Ул обычная квартира стандартная', '325-235');
 
 -- --------------------------------------------------------
 
@@ -338,9 +333,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `pwd`, `token`, `category`, `name`, `surename`, `patronymic`) VALUES
-(1, 'test@test.ru', '$2y$10$.oFInMWyYOZgV9CsP1HFDOsja3XM4y8yfjnNhg4v3TbWDpNueWyW6', '334d0b2c27c24a02bc12982915169aed27e753f3ab97212ece8c9407baff9d6ed151aec7190fce7adfb534adc92e116aefd84e7bff25c908759bbf1b21f273db7be50a017e1a89f505e636e2f5b928f0018fe39870c430be50dc58c23f02aaf0e24101e42ba782701bf5c962aaf78c8d37c4952702e54cff721082626b0d52ef', 1, 'test', '', ''),
+(1, 'test@test.ru', '$2y$10$.oFInMWyYOZgV9CsP1HFDOsja3XM4y8yfjnNhg4v3TbWDpNueWyW6', '05d6f4869cb5c8bcc806077325814d8773d35dc61c8e3bbbfc944ca2c715f6624bece6a5e8a3ae4f8b8465d9627ff6da25b909962291d90a9e098f6844780efd8c9ad2fff0d8b98be2924ef3ba9bb0d6aedcea292588b5c604d605fe83f10317d9420c994971b10b9e8a91effbdc4a38c52afca0a0354fd5dab228f20a5acd12', 1, 'test', '', ''),
 (2, 'test1@test.ru', '$2y$10$KSRlzOGTsgbr8myIDI1q.e2cfPIW9pjC/jMznsDQS8Sv9IbXVKkq.', 'd1718923556331fc6addd384cbc33772b5506dd0d6c462815fa0fe4c859a715e0053284e3fc5bc994500ba730745c24b9d10511ae2d850f2435b1ba941d838f6061e0055f0e496dec981f9b3bd8bb896386069583a0ac249d4e60bc081d3a2cd96c60bf72d9a6621fef783d83f2d5b6c944cb55bdd3043f5150fa436083f8e86', NULL, 'testAdam', NULL, NULL),
-(3, 'test2@test.ru', '$2y$10$cKh1cGuSx1VDlmtQ5wqyOeitcgMZF831zj4JBiXPg9n/CFdzWTX8S', '47e0db2df85fac0b4bed30c8c525867e81928950ecc53e235b994d276c7063f05f6c4dfba3a9c0641f859411dc2c8ffd1c3255c637ec06542c33a671de149026d0a0f591605e3a075e9232757d686e8af9f87d3fd77b6b6f8dab1c88e99f965566bc7a762be8be1626d44b67ac8f337d78ed51673a24f9d1eac7422f83e3ad3a', NULL, 'testEve', NULL, NULL);
+(3, 'test2@test.ru', '$2y$10$cKh1cGuSx1VDlmtQ5wqyOeitcgMZF831zj4JBiXPg9n/CFdzWTX8S', '47e0db2df85fac0b4bed30c8c525867e81928950ecc53e235b994d276c7063f05f6c4dfba3a9c0641f859411dc2c8ffd1c3255c637ec06542c33a671de149026d0a0f591605e3a075e9232757d686e8af9f87d3fd77b6b6f8dab1c88e99f965566bc7a762be8be1626d44b67ac8f337d78ed51673a24f9d1eac7422f83e3ad3a', NULL, 'testEve', NULL, NULL),
+(4, 'test4@test.ru', '$2y$10$20FZ8Q7fNHC.ap6kLulLVecNkCvlT.NvRLiOKRN0zxo8sU6fKNIWi', 'NULL', NULL, 'testb', NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -353,7 +349,8 @@ ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `did` (`did`),
   ADD KEY `uid` (`uid`),
-  ADD KEY `sid` (`sid`);
+  ADD KEY `sid` (`sid`),
+  ADD KEY `guid` (`guid`);
 
 --
 -- Индексы таблицы `depos`
@@ -450,7 +447,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `depos`
@@ -492,7 +489,7 @@ ALTER TABLE `medcardhistory`
 -- AUTO_INCREMENT для таблицы `passport`
 --
 ALTER TABLE `passport`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `pfeed`
@@ -528,7 +525,7 @@ ALTER TABLE `specialty`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -541,7 +538,8 @@ ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_ibfk_1` FOREIGN KEY (`did`) REFERENCES `doctors` (`id`),
   ADD CONSTRAINT `appointments_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `services` (`id`),
   ADD CONSTRAINT `appointments_ibfk_3` FOREIGN KEY (`uid`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `appointments_ibfk_4` FOREIGN KEY (`sid`) REFERENCES `services` (`id`);
+  ADD CONSTRAINT `appointments_ibfk_4` FOREIGN KEY (`sid`) REFERENCES `services` (`id`),
+  ADD CONSTRAINT `appointments_ibfk_5` FOREIGN KEY (`guid`) REFERENCES `guests` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `docsevices`

@@ -32,3 +32,8 @@
 
 <h2> Среда заупска </h2>
 <hr>
+<ol>
+<li>item</li>
+<li>item2</li>
+<li>item3</li>
+<ol>
