@@ -19,6 +19,7 @@ function isAuth(){
         if(!tryToken($_SESSION['accesToken'])){
             return false;
         }
+        return true;
     } else {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if(isset($_POST['accesToken'])){
@@ -26,7 +27,8 @@ function isAuth(){
                     $_SESSION['accesToken'] = $_POST['accesToken'];
                     return true;
                 }
-            }  
+            } 
+            return false;
         }
     }
 }

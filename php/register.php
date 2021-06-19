@@ -1,7 +1,4 @@
 <?php
-
-use function PHPSTORM_META\type;
-
 header("Access-Control-Allow-Origin: *");
 header('content-type: application/json');
 
