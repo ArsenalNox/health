@@ -61,4 +61,4 @@
 Разработчики    
 <h4> Брыкин Владислав backend https://t.me/namerinnos </h4>
 <h4> Донсков Дмитрий frontend https://t.me/pitonishe56 </h4>
-<h4> Бикимов Арман капитан команды, дизайнер https://t.me/@arman_bikimov </h4>
+<h4> Бикимов Арман капитан команды, дизайнер https://t.me/arman_bikimov </h4>
