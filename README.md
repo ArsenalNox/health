@@ -17,7 +17,6 @@
 <ul>
     <li>PHP, MYSQL</li>
     <li>Pyton, MonongoDB</li>
-    <li>HTML CSS JavaScript</li>
 </ul>
 
 <h4> Демо </h4>
