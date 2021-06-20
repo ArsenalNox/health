@@ -15,8 +15,10 @@
 
 <h4> Основной стэк технологий </h4>
 <ul>
-    <li>PHP, MYSQL</li>
-    <li>Pyton, MonongoDB</li>
+    <li> HTML CSS JavaSCript</li>
+    <li> React.js </li>
+    <li> PHP, MYSQL</li>
+    <li> Pyton, MonongoDB</li>
 </ul>
 
 <h4> Демо </h4>
@@ -55,3 +57,8 @@
 <p>Перейти в папку health/api/py и из неё выполнить команду flask run</p>
 
 <h3> API Готов к работе! </h3>
+
+Разработчики    
+<h4> Брыкин Владислав backend https://t.me/namerinnos </h4>
+<h4> Донсков Дмитрий frontend https://t.me/pitonishe57 </h4>
+<h4> Бикимов Арман капитан команды, дизайнер https://t.me/@arman_bikimov </h4>
