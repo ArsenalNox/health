@@ -31,10 +31,37 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $stm->bindParam(3, $pwd);
 
             if($stm->execute()){
+                $id = $dtb->lastInsertId();
+                $stm = $dtb->prepare("INSERT INTO `passport`(
+                    `uid`, 
+                    `serial`,
+                    `number`, 
+                    `givenby`, 
+                    `residense`, 
+                    `code`) 
+                    VALUES 
+                    (
+                        ?, 
+                        5231, 
+                        131313, 
+                        'Отделом УФМС росси по нной области классического района', 
+                        'Ул обычная квартира стандартная',
+                        '325-235'
+                    )");
+                $stm->bindParam(1, $id);
+                if($stm->execute()){
+                    $data['error'] = null;
+                } else {
+                    $data['error'] = $stm->errorInfo();
+                }
+
                 die(json_encode([
-                    'type' => 'success',
-                    'message' => 'Пользователь создан'
+                    'type'    => 'success',
+                    'message' => 'Пользователь создан',
+                    "id"      => $id,
+                    'data'    => $data
                 ]));
+
             } else {
                 errrorDie([
                     'type'    => 'error',
